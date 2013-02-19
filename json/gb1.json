@@ -1,6 +1,6 @@
 [
     {
-        "title": "A first Game Book written in JSON"
+        "title": "A first Game Book written in JSON",
         "body": "By Joel Hughes\nhttp://rudenoise.github.com",
         "choices": [1]
     },
