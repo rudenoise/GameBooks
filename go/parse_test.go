@@ -1,8 +1,9 @@
 package gb
-import(
-	"testing"
-	"fmt"
+
+import (
 	"errors"
+	"fmt"
+	"testing"
 )
 
 var gbJSON = []byte(`
@@ -23,6 +24,7 @@ func TestParse(t *testing.T) {
 		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actualStr)
 	}
 }
+
 func TestGetEpisode(t *testing.T) {
 	expected := fmt.Sprintf("%s", testEpisode)
 	parsed, err := Parse(gbJSON)
