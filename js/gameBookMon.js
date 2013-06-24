@@ -3,7 +3,7 @@ exports.gameBookMonad = (function () {
     // the schema described
     var tokenise, read,
         replaceRE = new RegExp('[^a-z]', 'g'), 
-        trimRE = new RegExp('[\-]{2,}|[\-]{1,}$', 'g');
+        trimRE = new RegExp('[\_]{2,}|[\_]{1,}$', 'g');
     
     read = function (story, index) {
         // a named recursive function that returns
@@ -39,7 +39,7 @@ exports.gameBookMonad = (function () {
         // 'Oh hi.' -> 'oh-hi'
         return string
             .toLowerCase()
-            .replace(replaceRE, '-')
+            .replace(replaceRE, '_')
             .replace(trimRE, '');
     };
     return read;
