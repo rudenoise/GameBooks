@@ -12,19 +12,23 @@ exports.stepOne = function (test) {
         '[object Object]',
         'first story episode is an Object');
     test.ok(
-        gbm(story).hasOwnProperty('Wake up.'),
+        gbm(story).hasOwnProperty('wake-up'),
         'the object has the choices imprinted');
     test.equal(
-        toString.call(gbm(story)['Wake up.']),
+        toString.call(gbm(story)['wake-up']),
         '[object Function]',
         'keyed function for story choice');
     test.ok(
-        gbm(story)['Wake up.']()
-            .hasOwnProperty('Jump out of the window.'),
+        gbm(story)['wake-up']()
+            .hasOwnProperty('jump-out-of-the-window'),
         'the object has the  first choice imprinted');
     test.ok(
-        gbm(story)['Wake up.']()
-            .hasOwnProperty('Brush teeth.'),
+        gbm(story)['wake-up']()
+            .hasOwnProperty('brush-teeth'),
         'the object has the choices imprinted');
+    test.ok(
+        gbm(story)['wake-up']()['brush-teeth']()
+            .hasOwnProperty('wake-up'),
+        'the chained function calls recurse and hold state');
     test.done();
 };
