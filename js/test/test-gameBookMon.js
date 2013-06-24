@@ -89,11 +89,6 @@ exports.history = function (test) {
             .back()
             .hasOwnProperty('wakeUp'),
         'three forward, three back');
-    console.log(
-        gbm(story)
-            .wakeUp()
-            .brushTeeth()
-    );
     test.ok(
         gbm(story)// -> 0 A first...
             .wakeUp()// 0 -> 1 Wake
@@ -101,5 +96,17 @@ exports.history = function (test) {
             .wakeUp()//  0 -> 1 -> 3 -> 1 Wake
             .hasOwnProperty('jumpOutOfTheWindow'),
         'a complicated path');
+    test.done();
+};
+exports.sideEffects = function (test) {
+    test.expect(4);
+    gbm(story, function () {
+        test.ok(true, 'side effects are run');
+    });
+    gbm(story).wakeUp(function (episodeAtIndex, episodeClosures) {
+        test.ok(true, 'overide side effect');
+        test.ok(episodeAtIndex.hasOwnProperty('title'));
+        test.ok(episodeClosures.hasOwnProperty('brushTeeth'));
+    });
     test.done();
 };
