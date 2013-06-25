@@ -1,5 +1,5 @@
+'use strict';
 exports.gameBookMonad = (function () {
-    'use strict';
     // create a "monad" that handles Game Books using
     // the schema described ../json/gb1.json
     var tokenise, read, replaceRE, trimRE, sE, createPossiblity;
@@ -16,7 +16,7 @@ exports.gameBookMonad = (function () {
         index = index || 0;
         sideEffect = sideEffect || sE;
 
-        // set-up varilables including
+        // set-up variables including
         // the episode object
         var episode = {}, l, choice, title;
 
@@ -43,7 +43,8 @@ exports.gameBookMonad = (function () {
             // otherwise pass back the previous episode
             return previous || read(story, sideEffect);
         };
-        // fire the side effects, assuming there are some
+        // fire the side effect, assuming there is one
+        // pass in the original episode JSON and episode possibilities
         sideEffect(story[index], episode);
         return episode;
     };
@@ -69,9 +70,10 @@ exports.gameBookMonad = (function () {
     };
 
     createPossiblity = function (story, sideEffect, choice, episode) {
-        // close over the arghuments' scope
+        // a "possibility" is a potential next step/option/decision
+        // close over the arguments' scope
         return function (sideEffect) {
-            // progress with story option
+            // use the possibility
             return read(story, sideEffect, choice, episode);
         };
     };
