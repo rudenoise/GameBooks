@@ -117,7 +117,8 @@ exports.history = function (test) {
     test.done();
 };
 exports.sideEffects = function (test) {
-    test.expect(4);
+    test.expect(8);
+    var sideEffectVar = 0;
     gbm(story, function () {
         test.ok(true, 'side effects are run');
     });
@@ -126,5 +127,18 @@ exports.sideEffects = function (test) {
         test.ok(episodeAtIndex.hasOwnProperty('title'));
         test.ok(episodeClosures.hasOwnProperty('brushTeeth'));
     });
+    gbm(
+        story,
+        function () {
+            test.ok(true, 'I should fire at every step of the story');
+            sideEffectVar = 1;
+        }
+    ).wakeUp().brushTeeth(
+        function () {
+            test.ok(sideEffectVar === 1);
+            sideEffectVar  = 2;
+        }
+    ).back();// * 3
+    test.ok(sideEffectVar === 2);
     test.done();
 };

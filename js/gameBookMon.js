@@ -38,7 +38,9 @@ exports.gameBookMonad = (function () {
         }
 
         // provide a way to go back
-        episode.back = function (sideEffect) {
+        episode.back = function (overrideSideEffect) {
+            // a replacement side effect may be inserted at any juncture
+            sideEffect = overrideSideEffect || sideEffect;
             // default previous episode to story start point
             // otherwise pass back the previous episode
             return previous || read(story, sideEffect);
@@ -72,7 +74,9 @@ exports.gameBookMonad = (function () {
     createPossiblity = function (story, sideEffect, choice, episode) {
         // a "possibility" is a potential next step/option/decision
         // close over the arguments' scope
-        return function (sideEffect) {
+        return function (overrideSideEffect) {
+            // a replacement side effect may be inserted at any juncture
+            sideEffect = overrideSideEffect || sideEffect;
             // use the possibility
             return read(story, sideEffect, choice, episode);
         };
