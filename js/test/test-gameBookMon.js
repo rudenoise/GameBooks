@@ -1,5 +1,5 @@
 'use strict';
-var gbm = require('../gameBookMon.js').gameBookMonad,
+var gbm = require('../gameBookMonad.js').gameBookMonad,
     story = require('../../json/gb1.json');
 
 exports.coreLoop = function (test) {
@@ -155,13 +155,13 @@ exports.sideEffects = function (test) {
                 test.ok(episode.title === 'A first Game Book written in JSON');
             }
             if (sideEffectVar === 2) {
-                test.ok(episode.title === "Wake up.")
+                test.ok(episode.title === "Wake up.");
             }
             if (sideEffectVar === 3) {
                 test.ok(episode.title === 'Jump out of the window.');
             }
             if (sideEffectVar === 4) {
-                test.ok(episode.title === "Wake up.")
+                test.ok(episode.title === "Wake up.");
             }
         }
     ).wakeUp().jumpOutOfTheWindow().back();

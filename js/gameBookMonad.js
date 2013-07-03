@@ -48,8 +48,13 @@ exports.gameBookMonad = (function () {
             // default previous episode to story start point
             // otherwise pass back the previous episode
             return previous ?
-                read(story, sideEffect, previous.index, previous.previous) :
-                read(story, sideEffect);
+                    read(
+                        story,
+                        sideEffect,
+                        previous.index,
+                        previous.previous
+                    ) :
+                    read(story, sideEffect);
         };
         // fire the side effect, assuming there is one
         // pass in the original episode JSON and episode possibilities
