@@ -11,12 +11,12 @@
     },
     {
         "title": "Jump out of the window.",
-        "body": "Today seems very dull, you throw yourself from the window. After blaking out, you become aware that you're in bed.",
+        "body": "Today seems very dull, you throw yourself from the window. After blacking out, you become aware that you're in bed.",
         "choices": [4, 1]
     },
     {
         "title": "Brush teeth.",
-        "body": "You get up and go to the bathroom. After brushin your teeth you feel sleepy.",
+        "body": "You get up and go to the bathroom. Having brushed your teeth, you feel very sleepy.",
         "choices": [1]
     },
     {

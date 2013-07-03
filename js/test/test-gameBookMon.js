@@ -117,7 +117,7 @@ exports.history = function (test) {
     test.done();
 };
 exports.sideEffects = function (test) {
-    test.expect(8);
+    test.expect(17);
     var sideEffectVar = 0;
     gbm(story, function () {
         test.ok(true, 'side effects are run');
@@ -135,10 +135,35 @@ exports.sideEffects = function (test) {
         }
     ).wakeUp().brushTeeth(
         function () {
-            test.ok(sideEffectVar === 1);
-            sideEffectVar  = 2;
+            sideEffectVar += 1;
+            test.ok(sideEffectVar > 1);
         }
     ).back();// * 3
-    test.ok(sideEffectVar === 2);
+
+    test.ok(sideEffectVar === 3);
+
+    sideEffectVar = 0;
+    gbm(
+        story,
+        function (episode, option) {
+            sideEffectVar += 1;
+            test.ok(
+                episode && option,
+                'both episode and option are passed through to the side-effect'
+            );
+            if (sideEffectVar === 1) {
+                test.ok(episode.title === 'A first Game Book written in JSON');
+            }
+            if (sideEffectVar === 2) {
+                test.ok(episode.title === "Wake up.")
+            }
+            if (sideEffectVar === 3) {
+                test.ok(episode.title === 'Jump out of the window.');
+            }
+            if (sideEffectVar === 4) {
+                test.ok(episode.title === "Wake up.")
+            }
+        }
+    ).wakeUp().jumpOutOfTheWindow().back();
     test.done();
 };

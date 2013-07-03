@@ -34,7 +34,10 @@ exports.gameBookMonad = (function () {
                 story,
                 sideEffect,
                 choice,
-                episode
+                {
+                    index: index,
+                    previous: previous
+                }
             );
         }
 
@@ -44,7 +47,9 @@ exports.gameBookMonad = (function () {
             sideEffect = overrideSideEffect || sideEffect;
             // default previous episode to story start point
             // otherwise pass back the previous episode
-            return previous || read(story, sideEffect);
+            return previous ?
+                read(story, sideEffect, previous.index, previous.previous) :
+                read(story, sideEffect);
         };
         // fire the side effect, assuming there is one
         // pass in the original episode JSON and episode possibilities
@@ -72,14 +77,14 @@ exports.gameBookMonad = (function () {
         return string.join('');
     };
 
-    createPossiblity = function (story, sideEffect, choice, episode) {
+    createPossiblity = function (story, sideEffect, choice, parentPossibility) {
         // a "possibility" is a potential next step/option/decision
         // close over the arguments' scope
         return function (overrideSideEffect) {
             // a replacement side effect may be inserted at any juncture
             sideEffect = overrideSideEffect || sideEffect;
             // use the possibility
-            return read(story, sideEffect, choice, episode);
+            return read(story, sideEffect, choice, parentPossibility);
         };
     };
     return read;
