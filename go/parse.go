@@ -22,10 +22,10 @@ type Story []Episode
 // in the gb format, otherwise it errors
 func Parse(jsonBlob []byte) (Story, error) {
 	// create a Story to absorb the gb.json
-  var story Story
-  // Unmarshal the json
+	var story Story
+	// Unmarshal the json
 	err := json.Unmarshal(jsonBlob, &story)
-  // return the story and error
+	// return the story and error
 	return story, err
 }
 
@@ -33,15 +33,15 @@ func Parse(jsonBlob []byte) (Story, error) {
 // looking up the episode's index withing the Story
 func GetEpisode(story Story, index int) (Episode, error) {
 	// create an episode to absorb any values from withing the Story Slice
-  var episode Episode
-  // create and error to absorb any errors encountered
+	var episode Episode
+	// create and error to absorb any errors encountered
 	var err error
-  // check that the index is withing the slice bounaries
+	// check that the index is withing the slice bounaries
 	if index > -1 && index < len(story) {
-    // it is so extract the Episode
+		// it is so extract the Episode
 		episode = story[index]
 	} else {
-    // it isn't, create an error
+		// it isn't, create an error
 		err = errors.New(fmt.Sprintf("Episode %d is not in this Story", index))
 	}
 	return episode, err
