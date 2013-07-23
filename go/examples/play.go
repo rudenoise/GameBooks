@@ -33,7 +33,10 @@ func onScreen(story gb.Story) {
 	}
 	defer termbox.Close()
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-	termbox.SetCell(0, 0, rune("H"[0]), termbox.ColorYellow, termbox.ColorDefault)
+	// write the title
+	writeText(story[0].Title, 0)
+	// write the body
+	writeText(story[0].Body, 2)
 	termbox.Flush()
 loop:
 	for {
@@ -44,5 +47,11 @@ loop:
 				break loop
 			}
 		}
+	}
+}
+
+func writeText(text string, y int) {
+	for x := 0; x < len(text); x++ {
+		termbox.SetCell(x, y, rune(text[x]), termbox.ColorYellow, termbox.ColorDefault)
 	}
 }
