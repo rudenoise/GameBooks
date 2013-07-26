@@ -36,13 +36,13 @@ func onScreen(story gb.Story) {
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 	x:= 1
 	// write the title
-	writeText(story[0].Title, 1, x)
+	writeText(story[1].Title, 1, x)
 	// write the body
 	x = x + 2
-	writeText(story[0].Body, 1, x)
+	writeText(story[1].Body, 1, x)
 	// write the opitons
 	x = x + 2
-	for _, choice := range story[0].Choices {
+	for _, choice := range story[1].Choices {
 		writeText(strconv.FormatFloat(choice, 'g', -1, 64), 1, x);
 		x++
 	}
