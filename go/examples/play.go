@@ -4,6 +4,7 @@ import(
 	"github.com/rudenoise/GameBooks/go"//gb package
 	"flag"
 	//"fmt"
+	"strconv"
 	"io/ioutil"
 	"github.com/nsf/termbox-go"
 )
@@ -33,10 +34,18 @@ func onScreen(story gb.Story) {
 	}
 	defer termbox.Close()
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
+	x:= 1
 	// write the title
-	writeText(story[0].Title, 0)
+	writeText(story[0].Title, 1, x)
 	// write the body
-	writeText(story[0].Body, 2)
+	x = x + 2
+	writeText(story[0].Body, 1, x)
+	// write the opitons
+	x = x + 2
+	for _, choice := range story[0].Choices {
+		writeText(strconv.FormatFloat(choice, 'g', -1, 64), 1, x);
+		x++
+	}
 	termbox.Flush()
 loop:
 	for {
@@ -50,8 +59,9 @@ loop:
 	}
 }
 
-func writeText(text string, y int) {
-	for x := 0; x < len(text); x++ {
-		termbox.SetCell(x, y, rune(text[x]), termbox.ColorYellow, termbox.ColorDefault)
+func writeText(text string, x, y int) {
+	for i := 0; i < len(text); i++ {
+		termbox.SetCell(x, y, rune(text[i]), termbox.ColorYellow, termbox.ColorDefault)
+		x++
 	}
 }

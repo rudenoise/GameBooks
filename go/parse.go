@@ -12,7 +12,7 @@ import (
 type Episode struct {
 	Title   string
 	Body    string
-	Choices []float64
+	Choices []float32
 }
 
 // a Story is a Slice of episodes

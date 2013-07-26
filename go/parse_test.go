@@ -9,7 +9,7 @@ import (
 var gbJSON = []byte(`
 	[{"title": "hi", "body": "first episode", "choices": [0]}]
 `)
-var testEpisode = Episode{"hi", "first episode", []float64{0}}
+var testEpisode = Episode{"hi", "first episode", []float32{0}}
 
 func TestParse(t *testing.T) {
 	tGBStory := make(Story, 0)
