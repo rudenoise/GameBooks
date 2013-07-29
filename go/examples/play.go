@@ -1,16 +1,16 @@
 package main
 
-import(
-	"github.com/rudenoise/GameBooks/go"//gb package
+import (
 	"flag"
-	//"fmt"
-	"strconv"
-	"io/ioutil"
 	"github.com/nsf/termbox-go"
+	"github.com/rudenoise/GameBooks/go" //gb package
+	"io/ioutil"
+	"strconv"
 )
 
+var story gb.Story
+
 func main() {
-	defer termbox.Close()
 	// read file path
 	flag.Parse()
 	jsonFilePath := flag.Arg(0)
@@ -20,28 +20,28 @@ func main() {
 		panic(err)
 	}
 	// turn it into a story
-	story, err := gb.Parse(jsonFile)
+	story, err = gb.Parse(jsonFile)
 	if err != nil {
 		panic(err)
 	}
-	showEpisode(story, 0)
+	startScreen()
 }
 
-func showEpisode(story gb.Story, index int) {
+func showEpisode(index int) {
 	episode, err := gb.GetEpisode(story, index)
 	if err != nil {
 		panic(err)
 	}
-	onScreen(episode)
+	writeEpisode(episode)
 }
 
-func onScreen(episode gb.Episode) {
+func writeEpisode(episode gb.Episode) {
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
 	}
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-	x:= 1
+	x := 1
 	// write the title
 	writeText(episode.Title, 1, x)
 	// write the body
@@ -50,18 +50,36 @@ func onScreen(episode gb.Episode) {
 	// write the opitons
 	x = x + 2
 	for _, choice := range episode.Choices {
-		writeText(strconv.FormatFloat(choice, 'g', -1, 64), 1, x);
+		writeText(strconv.FormatFloat(choice, 'g', -1, 64), 1, x)
 		x++
 	}
 	termbox.Flush()
+}
+
+func startScreen() {
+	defer termbox.Close()
+	showEpisode(0)
 loop:
 	for {
 		switch ev := termbox.PollEvent(); ev.Type {
 		case termbox.EventKey:
+			if ev.Ch == '1' {
+				showEpisode(1)
+				break
+			}
+			if ev.Ch == '2' {
+				showEpisode(2)
+				break
+			}
 			/*
-			if ev.Ch == '3' {
-				showEpisode(3)
-				break loop
+			if ev.Ch >= '3' && ev.Ch <= '9' {
+				index, err := strconv.Atoi(strconv.QuoteRune(ev.Ch))
+				if err != nil {
+					panic(err)
+					//break loop
+				}
+				showEpisode(index)
+				break
 			}
 			*/
 			switch ev.Key {
