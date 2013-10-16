@@ -10,7 +10,7 @@ exports.gameBookMonad = (function () {
     read = function (story, sideEffect, index, previous) {
         // a named recursive function that returns
         // an object encapsulating current story state
-        // and potential story stated
+        // and potential story state
         // inside functions that offer possibilities
 
         // default current episode index to story start point
